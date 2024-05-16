@@ -33,6 +33,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         ProdutoDescricao prodDesc = new ProdutoDescricao();
         prodDesc.varprob(ligamento);
         prodDesc.setVisible(true);
+        dispose();
     }    
 
 
