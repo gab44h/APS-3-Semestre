@@ -15,10 +15,11 @@ public class ProdutoDescricao extends javax.swing.JFrame {
 //Código Quando o Botão Enviar for Pressionado--------------------------------------------------------------------  
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        if(jTextCOD.getText().length() != 0 && jTextCPF.getText().length() != 0 && jTextDESC.getText().length() != 0){
+        if(jTextCOD.getText().length() != 0 && jTextEMAIL.getText().length() != 0 && jTextDESC.getText().length() != 0){
             Connection conexao;
             try {
                 ResultSet resultSet = null;
+                ResultSet resultSet2 = null;
                 conexao = new Conexao().getConnection();
                 String consultaCod = "SELECT * FROM tablepatrimonio WHERE codigo = ?";
                 PreparedStatement stmt = conexao.prepareStatement(consultaCod);
@@ -26,12 +27,16 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
                 resultSet = stmt.executeQuery();
                 if(resultSet.next() == false){
                     String texto = "Erro! Digite um código de produto válido.";
-                    jLabel5.setText(texto);
+                    JOptionPane.showMessageDialog(null, texto);
+                }else if(!Logins.email.equals(jTextEMAIL.getText())){
+                    String texto = "Erro! Digite seu email.";
+                    JOptionPane.showMessageDialog(null, texto);
                 }else{
                     String texto = "Seu chamado foi enviado com sucesso! Aguarde nossa resposta.";
-                    jLabel5.setText(texto);
+                    JOptionPane.showMessageDialog(null, texto);
+                    dispose();
                     try {
-                        String sql = "insert into tableproblemaproduto(tipoproblema, cpf, descricaoproblema, codproduto) values ('" + labelLigacao.getText() + "', '" + jTextCPF.getText() + "', '" + jTextDESC.getText() + "', " + jTextCOD.getText() + ");";
+                        String sql = "insert into tableproblemaproduto(tipoproblema, email, descricaoproblema, codproduto) values ('" + labelLigacao.getText() + "', '" + jTextEMAIL.getText() + "', '" + jTextDESC.getText() + "', " + jTextCOD.getText() + ");";
                         stmt  = conexao.prepareStatement(sql);
                         stmt.execute();
                     }catch (SQLException ex) {
