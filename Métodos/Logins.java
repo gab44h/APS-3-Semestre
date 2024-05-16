@@ -6,6 +6,7 @@ import java.sql.*;
 public class Logins {
     PreparedStatement statement = null;
     ResultSet resultSet = null;
+    public static String email = null;
     
     public void LoginFuncionario() throws SQLException{
         Scanner sc = new Scanner(System.in);
@@ -79,6 +80,7 @@ public class Logins {
             System.out.println("[1] Tentar Novamente");
             System.out.println("[2] Voltar a Página Inicial");
             System.out.print("O que deseja fazer? ");
+            System.out.println("");
             int escolhaLoginIncorreto = sc.nextInt();
             System.out.println("");
             if(escolhaLoginIncorreto == 1){
@@ -108,6 +110,7 @@ public class Logins {
         ResultSet resultSet = stmt.executeQuery();
         if (resultSet.next() && resultSet.getInt("total") > 0) {
             System.out.println("Usuário autenticado com sucesso!");
+            email = emailLogin;
             System.out.println("");
             System.out.println("[1] Serviço de Ajuda");
             System.out.println("[2] Editar Dados da Conta");
@@ -155,3 +158,4 @@ public class Logins {
         }
     }
 }
+
